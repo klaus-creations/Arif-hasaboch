@@ -87,14 +87,14 @@ const AuthRedirect = function () {
   return (
     <div className="flex items-center gap-2">
       <Link
-        href={"/sign-up"}
+        href={"/auth/sign-up"}
         className="text-base bg-indigo-700 hover:bg-indigo-800 duration-300  px-2 py-1 rounded-lg text-white"
       >
         Sign Up
       </Link>
 
       <Link
-        href={"/sign-in"}
+        href={"auth//sign-in"}
         className="text-base  border-[1px] border-indigo-700 hover:border-indigo-800 duration-300  px-2 py-1 rounded-lg text-gray-950"
       >
         Sign In
