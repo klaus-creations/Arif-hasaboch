@@ -1,7 +1,23 @@
+import { signinValidation } from "@/validations/createHasab";
+import { useFormik } from "formik";
 import Link from "next/link";
 import React from "react";
 
 export default function Signin() {
+  const { errors, values, touched, handleChange, handleBlur } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    onSubmit: (data) => {
+      console.log("form submitted");
+    },
+
+    validationSchema: signinValidation,
+    enableReinitialize: true,
+  });
+
   return (
     <form className="w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%] 2xl:w-[70%] mx-auto flex justify-center">
       <div className="w-[80%] flex flex-col items-center bg-indigo-950/[.1] mt-10 py-5 gap-3">
@@ -15,6 +31,10 @@ export default function Signin() {
           </label>
 
           <input
+            value={values["email"]}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name="email"
             className="w-full h-10 outline-none border-[1px] border-indigo-800 rounded-lg px-3 bg-black/[.05] placeholder:text-gray-500"
             placeholder="Enter Your Email Address"
           />
@@ -26,6 +46,10 @@ export default function Signin() {
           </label>
 
           <input
+            value={values["password"]}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name="password"
             className="w-full h-10 outline-none border-[1px] border-indigo-800 rounded-lg px-3 bg-black/[.05] placeholder:text-gray-500"
             placeholder="Enter Your Password"
           />
