@@ -12,11 +12,17 @@ export const getAllThoughts = async function (data: TGetAllThoughts) {
     await connectDB();
     const result = await thoughtsModel
       .find({})
-      .populate({ path: "tags", model: tagModel })
+      .populate({ path: "tags", model: tagModel }) // Ensure tags are fully populated
       .populate({ path: "author", model: userModel });
-    return { result };
+
+    if (!result) {
+      throw new Error("Failed to fetch thoughts.");
+    }
+
+    return { result }; // Wrap the response in an object
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching thoughts:", error);
+    return { result: [] }; // Ensure it always returns a predictable structure
   }
 };
 
