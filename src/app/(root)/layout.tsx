@@ -1,4 +1,4 @@
-import HomeLayout from "@/components/layouts/HomeLayout";
+import CommonLayout from "@/components/layouts/CommonLayout";
 import React from "react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <main className="w-full h-screen overflow-hidden flex items-center justify-center">
-      <HomeLayout>{children}</HomeLayout>
+      <CommonLayout>{children}</CommonLayout>
     </main>
   );
 }
