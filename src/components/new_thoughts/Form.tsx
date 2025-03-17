@@ -19,8 +19,20 @@ import { newThoughtSchema } from "@/validations";
 import { z } from "zod";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
+import { createNewThought } from "@/lib/actions/thought.action";
 
-export const NewThoughtForm = function () {
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+
+export const NewThoughtForm = function ({
+  mongoUserId,
+}: {
+  mongoUserId: string;
+}) {
+  const router = useRouter();
+  const pathName = usePathname();
+  const [isSubmittin, setIsSubmitting] = useState(false);
+
   const form = useForm<z.infer<typeof newThoughtSchema>>({
     resolver: zodResolver(newThoughtSchema),
     defaultValues: {
@@ -30,8 +42,23 @@ export const NewThoughtForm = function () {
     },
   });
 
-  const onSubmit = function () {
-    console.log("hello world");
+  const onSubmit = async function (values: z.infer<typeof newThoughtSchema>) {
+    try {
+      setIsSubmitting(true);
+      await createNewThought({
+        title: values.title,
+        explanation: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+        path: "/",
+      });
+
+      setIsSubmitting(false);
+
+      router.push("/");
+    } catch (error) {
+      console.log(error instanceof Error ? error.message : error);
+    }
   };
 
   const handleInputKeydown = function (
@@ -165,6 +192,7 @@ export const NewThoughtForm = function () {
           )}
         />
         <Button
+          disabled={isSubmittin}
           type="submit"
           className="bg-gradient-to-r from-emerald-500 to-emerald-700"
         >
