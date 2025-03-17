@@ -3,7 +3,7 @@ import { Schema, model, Document, models } from "mongoose";
 export interface IThoughts extends Document {
   title: string;
   explanation: string;
-  tags: Schema.Types.ObjectId[];
+  tags: [Schema.Types.ObjectId[], ref: "Tag"];
   views: number;
   upvotes: Schema.Types.ObjectId[];
   downvotes: Schema.Types.ObjectId[];
