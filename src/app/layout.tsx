@@ -30,7 +30,9 @@ export default function RootLayout({
   return (
     <ClerkProvider appearance={{}}>
       <html lang="en">
-        <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+        <body
+          className={`${inter.variable} ${spaceGrotesk.variable} bg-slate-950 text-gray-100`}
+        >
           {children}
         </body>
       </html>
