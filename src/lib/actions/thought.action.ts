@@ -4,12 +4,27 @@ import connectDB from "@/config/db";
 import tagModel from "@/models/tags.model";
 import thoughtsModel from "@/models/thoughts.model";
 import { revalidatePath } from "next/cache";
+import { TCreateThoughts, TGetAllThoughts } from "./shared.types";
+import userModel from "@/models/user.model";
 
-export async function createNewThought(params: any) {
+export const getAllThoughts = async function (data: TGetAllThoughts) {
+  try {
+    await connectDB();
+    const result = await thoughtsModel
+      .find({})
+      .populate({ path: "tags", model: tagModel })
+      .populate({ path: "author", model: userModel });
+    return { result };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export async function createNewThought(data: TCreateThoughts) {
   try {
     await connectDB();
 
-    const { title, explanation, tags, author, path } = params;
+    const { title, explanation, tags, author, path } = data;
 
     const thought = await thoughtsModel.create({
       title,
