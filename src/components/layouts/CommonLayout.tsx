@@ -11,7 +11,9 @@ export default function CommonLayout({
       <div className="w-full h-[10%]">
         <Header />
       </div>
-      <div className="w-full h-[90%] overflow-y-auto">{children}</div>
+      <div className="w-full h-[90%] overflow-y-auto bg-gray-950">
+        {children}
+      </div>
     </div>
   );
 }
