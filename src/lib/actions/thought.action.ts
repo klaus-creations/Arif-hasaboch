@@ -8,6 +8,7 @@ import { TCreateThoughts, TGetAllThoughts } from "./shared.types";
 import userModel from "@/models/user.model";
 
 export const getAllThoughts = async function (data: TGetAllThoughts) {
+  console.log(data);
   try {
     await connectDB();
     const result = await thoughtsModel

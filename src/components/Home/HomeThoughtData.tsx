@@ -10,7 +10,6 @@ import {
   MessageCircle,
   ThumbsDown,
   ThumbsUp,
-  User,
 } from "lucide-react";
 import { Button } from "../ui/button";
 
