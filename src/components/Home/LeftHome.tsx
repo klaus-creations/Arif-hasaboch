@@ -10,6 +10,12 @@ export default async function LeftHome() {
   const data = await getAllThoughts({});
   const thoughts = data?.result as IThoughts[];
 
+  // console.log("This is total users");
+  // const users = await userModel.find();
+  // console.log(users);
+
+  console.log(process.env.SIGNING_SECRET);
+
   return (
     <div className="h-full w-[70%] overflow-y-auto flex flex-col items-start gap-5 py-3 px-6">
       <LeftHomeFirstC />

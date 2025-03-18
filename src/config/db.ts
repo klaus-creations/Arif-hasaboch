@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 if (!process.env.MONGO_DB_URI) {
-  console.log("please say something");
   throw new Error("please create your database uri ");
 }
 
