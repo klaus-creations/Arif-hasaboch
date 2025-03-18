@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // "use client";
 
-import { IThoughts } from "@/models/thoughts.model";
 import React from "react";
 import { Badge } from "../ui/badge";
 import {
@@ -14,7 +13,7 @@ import {
 import { Button } from "../ui/button";
 
 interface HomeThoughtDataProps {
-  thought: IThoughts;
+  thought: any;
 }
 
 export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {

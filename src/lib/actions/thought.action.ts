@@ -2,28 +2,30 @@
 
 import connectDB from "@/config/db";
 import tagModel from "@/models/tags.model";
-import thoughtsModel from "@/models/thoughts.model";
+import thoughtsModel, { IThoughts } from "@/models/thoughts.model";
 import { revalidatePath } from "next/cache";
 import { TCreateThoughts, TGetAllThoughts } from "./shared.types";
 import userModel from "@/models/user.model";
 
-export const getAllThoughts = async function (data: TGetAllThoughts) {
+export const getAllThoughts = async function (
+  data: TGetAllThoughts
+): Promise<{ result: IThoughts[] }> {
   console.log(data);
   try {
     await connectDB();
     const result = await thoughtsModel
       .find({})
-      .populate({ path: "tags", model: tagModel }) // Ensure tags are fully populated
+      .populate({ path: "tags", model: tagModel })
       .populate({ path: "author", model: userModel });
 
     if (!result) {
       throw new Error("Failed to fetch thoughts.");
     }
 
-    return { result }; // Wrap the response in an object
+    return { result };
   } catch (error) {
     console.error("Error fetching thoughts:", error);
-    return { result: [] }; // Ensure it always returns a predictable structure
+    return { result: [] };
   }
 };
 
