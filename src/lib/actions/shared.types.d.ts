@@ -14,3 +14,21 @@ export interface TCreateThoughts {
   author: Schema.Types.ObjectId | IUser;
   path: string;
 }
+
+export interface TCreateUser {
+  clerkId: string;
+  name: string;
+  username: string;
+  email: string;
+  picture: string;
+}
+
+export interface TUpdateUser {
+  clerkId: string;
+  updateData: Partial<IUser>;
+  path: string;
+}
+
+export interface TDeleteUser {
+  clerkId: string;
+}
