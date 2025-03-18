@@ -19,7 +19,6 @@ interface HomeThoughtDataProps {
 }
 
 export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
-  console.log(thought);
   const explanation =
     thought.explanation.length > 200
       ? thought.explanation.slice(0, 200) + "..."
