@@ -11,7 +11,7 @@ export default async function LeftHome() {
   const thoughts = data?.result as IThoughts[];
 
   return (
-    <div className="h-full w-[70%] bg-emerald-500/[.01] overflow-y-auto flex flex-col items-start gap-5 py-3 px-6">
+    <div className="h-full w-[70%] overflow-y-auto flex flex-col items-start gap-5 py-3 px-6">
       <LeftHomeFirstC />
       <LeftHomeInputC />
       <div className="w-full flex flex-col items-center gap-10 lg:gap-14 2xl:gap-15">
@@ -44,9 +44,9 @@ const LeftHomeFirstC = function () {
 
 const LeftHomeInputC = function () {
   return (
-    <form className="w-full sm:w-[95%] lg:w-[85%] 2xl:w-[60%] h-12 relative">
+    <form className="w-full sm:w-[95%] lg:w-[85%] 2xl:w-[60%] h-12 relative border-[1px] border-emerald-500/[.5] rounded-md">
       <input
-        className="w-full h-full border-[1px] border-emerald-500/[.5] bg-black/[.1] rounded-md outline-none pl-3 pr-20 tracking-[1px]"
+        className="w-full h-full  rounded-md outline-none pl-3 pr-20 tracking-[1px] bg-black/[.1]"
         type="text"
         placeholder="Search for Thoughts"
       />
