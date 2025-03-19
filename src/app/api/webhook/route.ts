@@ -7,9 +7,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET;
 
-  console.log("this is from something");
-  console.log(SIGNING_SECRET);
-
   if (!SIGNING_SECRET) {
     throw new Error(
       "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env"
@@ -47,9 +44,6 @@ export async function POST(req: Request) {
     });
   }
   const eventType = evt.type;
-
-  console.log("from api/route");
-  console.log(eventType);
 
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
