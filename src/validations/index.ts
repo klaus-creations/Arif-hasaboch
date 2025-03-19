@@ -4,7 +4,7 @@ export const newThoughtSchema = z.object({
   title: z
     .string()
     .min(5, { message: "Title must be at least 5 characters" })
-    .max(50, { message: "Title must be at most 50 characters" }),
+    .max(200, { message: "Title must be at most 200 characters" }),
   explanation: z
     .string()
     .min(100, { message: "Explanation must be at least 100 characters" }),
@@ -17,4 +17,10 @@ export const newThoughtSchema = z.object({
     )
     .min(1, { message: "You need to insert at least one tag" })
     .max(3, { message: "You can only add up to 3 tags" }), // ✅ Fixed message
+});
+
+export const commentValidation = z.object({
+  comment: z
+    .string()
+    .min(5, { message: "Comment must be at least 50 characters" }),
 });
