@@ -21,7 +21,7 @@ import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 import { createNewThought } from "@/lib/actions/thought.action";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const NewThoughtForm = function ({
@@ -30,6 +30,10 @@ export const NewThoughtForm = function ({
   mongoUserId: string;
 }) {
   const router = useRouter();
+  const pathName = usePathname();
+
+  console.log("hello");
+  console.log(pathName);
   const [isSubmittin, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof newThoughtSchema>>({
@@ -51,6 +55,9 @@ export const NewThoughtForm = function ({
         author: JSON.parse(mongoUserId),
         path: "/",
       });
+
+      console.log("path name is pathnam");
+      console.log(pathName);
 
       setIsSubmitting(false);
 
