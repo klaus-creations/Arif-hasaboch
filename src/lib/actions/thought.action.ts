@@ -106,3 +106,12 @@ export const getSingleThoughts = async function (
     throw error;
   }
 };
+
+export const getThoughtByauthor = async function (params: IDetail) {
+  try {
+    const authorThoughts = await thoughtsModel.find({ author: params.id });
+    return authorThoughts;
+  } catch (error) {
+    console.log(error);
+  }
+};

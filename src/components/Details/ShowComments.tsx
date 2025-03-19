@@ -56,7 +56,10 @@ const Comment = async function ({ com }: IComments) {
           </div>
         </div>
       </div>
-      <Link href={"/"} className="flex gap-2 items-center">
+      <Link
+        href={`/profile/${user.clerkId}`}
+        className="flex gap-2 items-center"
+      >
         <p className="text-xs lg:text-sm text-gray-400 font-bold tracking-[1px]">
           {user?.name}
         </p>
