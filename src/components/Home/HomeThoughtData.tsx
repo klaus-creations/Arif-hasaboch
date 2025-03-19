@@ -10,7 +10,9 @@ import {
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
-import { Button } from "../ui/button";
+import Image from "next/image";
+import { getTimestamp } from "@/lib/utils";
+import Link from "next/link";
 
 interface HomeThoughtDataProps {
   thought: any;
@@ -21,6 +23,7 @@ export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
     thought.explanation.length > 200
       ? thought.explanation.slice(0, 200) + "..."
       : thought.explanation;
+
   return (
     <div
       className="w-full rounded-md p-2 shadow-md shadow-emerald-500/[.1] border-[1px] bg-slate-950/[.1] border-gray-100/[.2] flex 
@@ -47,7 +50,13 @@ export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
       <div className="w-full flex justify-between">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 text-gray-500">
-            {/* <User className="size-3 lg:size-4" /> */}
+            <Image
+              src={thought.author.picture}
+              alt="user avatar"
+              width={20}
+              height={20}
+              className="rounded-full"
+            />
             <p className="text-xs lg:text-sm text-gray-300">
               {thought.author?.name}
             </p>
@@ -82,11 +91,15 @@ export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
           <Eye className="size-3 lg:size-4" />
           <p className="text-xs lg:text-sm text-gray-200">{thought.views}</p>
           <p className="text-xs lg:text-sm text-gray-200">Views</p>
+          <p>{getTimestamp(thought.createdAt)}</p>
         </div>
-        <Button className="flex items-center gap-1 text-emerald-500 bg-transparent border-[1px] border-emerald-600/[.5] px-2 py-1 hover:bg-emerald-700/[.05]">
+        <Link
+          href={`thoughts/${thought._id}`}
+          className="flex items-center gap-1 text-emerald-500 bg-transparent border-[1px] border-emerald-600/[.5] px-2 py-1 hover:bg-emerald-700/[.05]"
+        >
           <p className="text-xs lg:text-sm text-gray-400">See More</p>
           <ArrowUpRight className="size-3 lg:size-4" />
-        </Button>
+        </Link>
       </div>
     </div>
   );

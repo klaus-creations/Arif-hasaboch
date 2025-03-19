@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import connectDB from "@/config/db";
-import userModel from "@/models/user.model";
-import { TCreateUser, TDeleteUser, TUpdateUser } from "./shared.types";
+import userModel, { IUser } from "@/models/user.model";
+import {
+  TCreateUser,
+  TDeleteUser,
+  TgetAllUsers,
+  TUpdateUser,
+} from "./shared.types";
 import { revalidatePath } from "next/cache";
 import thoughtsModel from "@/models/thoughts.model";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getUserById = async function (data: any) {
   try {
     connectDB();
@@ -76,6 +81,41 @@ export async function deleteUser(params: TDeleteUser) {
     const deletedUser = await userModel.findByIdAndDelete(user._id);
 
     return deletedUser;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getAllUsers(data: TgetAllUsers): Promise<{
+  totalUsers: IUser[];
+}> {
+  try {
+    await connectDB();
+
+    // const { query, page = 1, pageSize = 10 } = data;
+    // const skipAmount = (page - 1) * pageSize;
+
+    // const queries: FilterQuery<typeof User> = {};
+
+    // if(searchQuery) {
+    //   const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    //   query.$or = [
+    //     { name: { $regex: new RegExp(escapedSearchQuery, 'i') }},
+    //     { username: { $regex: new RegExp(escapedSearchQuery, 'i') }},
+    //   ]
+    // }
+
+    //     let sortOptions = {};
+    // const users = await User.find(query)
+    //   .sort(sortOptions)
+    //   .skip(skipAmount)
+    //   .limit(pageSize)
+
+    const totalUsers = await userModel.find(data);
+    // const isNext = totalUsers > skipAmount + users.length;
+
+    return { totalUsers };
   } catch (error) {
     console.log(error);
     throw error;

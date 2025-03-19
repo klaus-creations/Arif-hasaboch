@@ -28,6 +28,13 @@ export default function Header() {
         arif-hasab
       </Link>
 
+      <nav className="hidden lg:flex items-center gap-3">
+        <Link href={"/"}>Home</Link>
+        <Link href={"/"}>About</Link>
+        <Link href={"/tags"}>Tags</Link>
+        <Link href={"/members"}>Members</Link>
+      </nav>
+
       <div className="hidden lg:block">
         <SignedIn>
           <UserButton />

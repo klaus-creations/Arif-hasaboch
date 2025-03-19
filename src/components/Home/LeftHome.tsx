@@ -1,23 +1,23 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { PenLine, SearchIcon } from "lucide-react";
+import { PenLine } from "lucide-react";
 import HomeThoughtData from "./HomeThoughtData";
 import { getAllThoughts } from "@/lib/actions/thought.action";
 import { IThoughts } from "@/models/thoughts.model";
+import { LeftHomeInputC } from "./LeftHomeinput";
 
-export default async function LeftHome() {
-  const data = await getAllThoughts({});
+export default async function LeftHome({ query }: { query: string }) {
+  const param = {
+    query,
+    page: 1,
+    pageSize: 10,
+  };
+  const data = await getAllThoughts(param);
   const thoughts = data?.result as IThoughts[];
 
-  // console.log("This is total users");
-  // const users = await userModel.find();
-  // console.log(users);
-
-  console.log(process.env.SIGNING_SECRET);
-
   return (
-    <div className="h-full w-[70%] overflow-y-auto flex flex-col items-start gap-5 py-3 px-6">
+    <div className="h-full w-full lg:w-[70%] overflow-y-auto flex flex-col items-start gap-5 py-3 lg:px-6">
       <LeftHomeFirstC />
       <LeftHomeInputC />
       <div className="w-full flex flex-col items-center gap-10 lg:gap-14 2xl:gap-15">
@@ -45,25 +45,5 @@ const LeftHomeFirstC = function () {
         </Button>
       </Link>
     </div>
-  );
-};
-
-const LeftHomeInputC = function () {
-  return (
-    <form className="w-full sm:w-[95%] lg:w-[85%] 2xl:w-[60%] h-12 relative border-[1px] border-emerald-500/[.5] rounded-md">
-      <input
-        className="w-full h-full  rounded-md outline-none pl-3 pr-20 tracking-[1px] bg-black/[.1]"
-        type="text"
-        placeholder="Search for Thoughts"
-      />
-
-      <button
-        type="button"
-        className="absolute top-[50%] -translate-y-[50%] right-2 flex items-center gap-1 bg-emerald-700 px-2 py-1 rounded-lg"
-      >
-        <span className="text-xs lg:text-sm tracking-[1px]">Search</span>
-        <SearchIcon className="size-4" />
-      </button>
-    </form>
   );
 };
