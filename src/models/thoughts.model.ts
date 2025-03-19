@@ -20,7 +20,7 @@ const ThoughtsSchema = new Schema({
   upvotes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   downvotes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   author: { type: Schema.Types.ObjectId, ref: "User" },
-  comments: [{ type: Schema.Types.ObjectId, ref: "Answer" }],
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comments" }],
   createdAt: { type: Date, default: Date.now },
 });
 
