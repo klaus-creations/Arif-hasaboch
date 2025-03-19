@@ -4,7 +4,7 @@ import { Schema } from "mongoose";
 export interface TGetAllThoughts {
   page?: number;
   pageSize?: number;
-  query?: number;
+  query?: string;
 }
 
 export interface TCreateThoughts {
@@ -31,4 +31,31 @@ export interface TUpdateUser {
 
 export interface TDeleteUser {
   clerkId: string;
+}
+
+export interface TgetAllUsers {
+  page?: number;
+  pageSize?: number;
+  query?: number;
+}
+
+export interface TGetAllTags {
+  page?: number;
+  pageSize?: number;
+  query?: number;
+}
+
+export interface IDetail {
+  id: string;
+}
+
+export interface ICreateComment {
+  author: Schema.Types.ObjectId;
+  thought: Schema.Types.ObjectId;
+  comment: string;
+  path: string;
+}
+
+export interface IGetThoughtsComment {
+  thoughtId: string;
 }
