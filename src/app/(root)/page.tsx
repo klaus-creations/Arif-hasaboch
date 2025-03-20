@@ -2,12 +2,12 @@ import LeftHome from "@/components/Home/LeftHome";
 import RightHome from "@/components/Home/RightHome";
 import React from "react";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { query?: string };
-}) {
-  const data = searchParams.query || ""; // No need to await
+interface PageProps {
+  searchParams: Record<string, string | string[] | undefined>;
+}
+
+export default function Page({ searchParams }: PageProps) {
+  const data = typeof searchParams.query === "string" ? searchParams.query : "";
 
   console.log(data);
 
