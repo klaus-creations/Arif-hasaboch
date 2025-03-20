@@ -2,12 +2,13 @@ import LeftHome from "@/components/Home/LeftHome";
 import RightHome from "@/components/Home/RightHome";
 import React from "react";
 
-export default async function page({
+export default function Page({
   searchParams,
 }: {
   searchParams: { query?: string };
 }) {
-  const data = (await searchParams.query) || "";
+  const data = searchParams.query || ""; // No need to await
+
   console.log(data);
 
   return (
