@@ -28,7 +28,7 @@ export default function Header() {
         arif-hasab
       </Link>
 
-      <nav className="hidden lg:flex items-center gap-3">
+      <nav className="hidden lg:flex items-center gap-8">
         <Link href={"/"}>Home</Link>
         <Link href={"/"}>About</Link>
         <Link href={"/tags"}>Tags</Link>
