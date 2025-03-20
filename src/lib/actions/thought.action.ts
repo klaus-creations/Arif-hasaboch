@@ -151,3 +151,35 @@ export const addBio = async function ({
     return { success: false, message: "Error updating bio" };
   }
 };
+
+export const removeBio = async function ({
+  authorId,
+  path,
+}: {
+  authorId: string;
+  path: string;
+}): Promise<{ success: boolean; message: string }> {
+  try {
+    await connectDB();
+
+    console.log("Removing bio for author:", authorId);
+
+    const updatedAuthor = await userModel.findByIdAndUpdate(
+      { _id: authorId },
+      { $unset: { bio: "" } },
+      { new: true }
+    );
+
+    console.log(updatedAuthor);
+
+    if (!updatedAuthor) {
+      return { success: false, message: "Author not found" };
+    }
+
+    revalidatePath(path);
+    return { success: true, message: "Bio removed successfully" };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: "Error removing bio" };
+  }
+};
