@@ -1,121 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-import Image from "next/image";
 import React from "react";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { bioValidation } from "@/validations";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { addBio } from "@/lib/actions/thought.action";
-import { Input } from "../ui/input";
+import { IDetail } from "@/lib/actions/shared.types";
+import { IThoughts } from "@/models/thoughts.model";
+import HomeThoughtData from "../Home/HomeThoughtData";
+import { getThoughtByauthor } from "@/lib/actions/thought.action";
+import SelfProfileClient from "./SelfProfileClient";
 
 interface ISelfProfile {
   data: any;
 }
 export default function SelfProfile({ data }: ISelfProfile) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const pathName = usePathname();
-
   const userData = JSON.parse(data);
 
-  const form = useForm<z.infer<typeof bioValidation>>({
-    resolver: zodResolver(bioValidation),
-    defaultValues: {
-      bio: "",
-    },
-  });
-
-  const onSubmit = async function (values: z.infer<typeof bioValidation>) {
-    try {
-      const some: any = {
-        bio: values.bio,
-        authorId: userData?._id,
-        path: pathName,
-      };
-      setIsSubmitting(true);
-      await addBio(some);
-      setIsSubmitting(false);
-      form.reset();
-    } catch (error) {
-      console.log(error instanceof Error ? error.message : error);
-    }
-  };
   return (
     <div className="w-full flex flex-col items-start gap-4">
-      <div className="flex items-center gap-4">
-        <Image
-          src={userData?.picture}
-          alt="user avatar"
-          width={50}
-          height={50}
-          className="rounded-full size-8 lg:size-12 2xl:lg:size-14"
-        />
-        <p className="text-xl lg:text-2xl text-gray-200 font-extrabold tracking-[1px]">
-          {userData?.name}
-        </p>
-      </div>
-
-      <p className="text-base lg:text-xl font-bold tracking-[1px] text-gray-300">
-        {userData?.bio ? (
-          userData.bio
-        ) : (
-          <Dialog>
-            <DialogTrigger className="bg-emerald-950/[.6] px-2 py-1 rounded-md border-[1px] border-emerald-500/[.4] textxs lg:text-base">
-              Add Bio
-            </DialogTrigger>
-            <DialogContent className="bg-gray-950 border-emerald-500/[.3]">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-8 py-5 w-full sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-[70%] 2xl:w-[55%] flex flex-col items-start"
-                >
-                  <FormField
-                    control={form.control}
-                    name="bio"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel className="text-base lg:text-xl tracking-[1px]">
-                          Bio
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your comment..."
-                            className="border-emerald-500/[.5] w-full"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button
-                    disabled={isSubmitting}
-                    type="submit"
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-700"
-                  >
-                    Comment
-                  </Button>
-                </form>
-              </Form>
-            </DialogContent>
-          </Dialog>
-        )}
-      </p>
+      <SelfProfileClient data={data} />
+      <MyPosts id={userData?._id} />
     </div>
   );
 }
+
+const MyPosts = async function ({ id }: IDetail) {
+  const th = (await getThoughtByauthor({ id })) || [];
+
+  return (
+    <div className="w-full flex flex-col gap-5 items-center">
+      {th.map((el: IThoughts) => {
+        return <HomeThoughtData key={String(el._id)} th={JSON.stringify(el)} />;
+      })}
+    </div>
+  );
+};
