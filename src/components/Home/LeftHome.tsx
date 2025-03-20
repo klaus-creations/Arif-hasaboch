@@ -23,7 +23,10 @@ export default async function LeftHome({ query }: { query: string }) {
       <div className="w-full flex flex-col items-center gap-10 lg:gap-14 2xl:gap-15">
         {thoughts.map(function (thought: IThoughts) {
           return (
-            <HomeThoughtData key={thought._id as string} thought={thought} />
+            <HomeThoughtData
+              key={thought._id as string}
+              th={JSON.stringify(thought)}
+            />
           );
         })}
       </div>
