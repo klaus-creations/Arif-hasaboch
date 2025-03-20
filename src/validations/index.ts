@@ -24,3 +24,10 @@ export const commentValidation = z.object({
     .string()
     .min(5, { message: "Comment must be at least 50 characters" }),
 });
+
+export const bioValidation = z.object({
+  bio: z
+    .string()
+    .min(40, { message: "Bio must be atleast 50 characters" })
+    .max(400, { message: "Bio cannot be more than 400 characters" }),
+});
