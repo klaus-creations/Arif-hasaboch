@@ -39,7 +39,7 @@ export const LeftHomeInputC = function () {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full sm:w-[95%] lg:w-[85%] 2xl:w-[60%] h-12 relative border-[1px] border-emerald-500/[.5] rounded-md"
+      className="w-full sm:w-[95%] lg:w-[85%] 2xl:w-[60%] h-12 py-2 relative border-[1px] border-emerald-500/[.5] rounded-md"
     >
       <input
         value={thoughtQuery}
