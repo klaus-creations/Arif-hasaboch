@@ -2,13 +2,13 @@ import LeftHome from "@/components/Home/LeftHome";
 import RightHome from "@/components/Home/RightHome";
 import React from "react";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  const data =
-    typeof searchParams?.query === "string" ? searchParams.query : "";
+// Correct Next.js Page Props Type
+interface PageProps {
+  searchParams: Record<string, string | undefined>;
+}
+
+export default function Page({ searchParams }: PageProps) {
+  const data = searchParams.query ?? "";
 
   console.log(data);
 
