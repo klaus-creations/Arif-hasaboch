@@ -7,9 +7,9 @@ import { getAllThoughts } from "@/lib/actions/thought.action";
 import { IThoughts } from "@/models/thoughts.model";
 import { LeftHomeInputC } from "./LeftHomeinput";
 
-export default async function LeftHome({ query }: { query: string }) {
+export default async function LeftHome() {
   const param = {
-    query,
+    query: "",
     page: 1,
     pageSize: 10,
   };
