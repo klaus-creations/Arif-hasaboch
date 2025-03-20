@@ -15,7 +15,7 @@ export default function OthersProfile({ data }: IOtherProfile) {
     <div className="w-full h-full overflow-y-auto flex flex-col items-start gap-5">
       <div className="flex items-center gap-4">
         <Image
-          src={userData?.picture}
+          src={userData?.picture || "/av.svg"}
           alt="user avatar"
           width={50}
           height={50}
@@ -38,14 +38,10 @@ export default function OthersProfile({ data }: IOtherProfile) {
 const OthersPosts = async function ({ id }: IDetail) {
   const th = (await getThoughtByauthor({ id })) || [];
 
-  console.log("this is th");
-  console.log(id);
-  console.log(th);
-
   return (
     <div className="w-full flex flex-col gap-5 items-center">
-      {th.map((el: IThoughts) => {
-        return <HomeThoughtData key={String(el._id)} thought={el} />;
+      {th.map((el: IThoughts, i: number) => {
+        return <HomeThoughtData key={String(i)} th={JSON.stringify(el)} />;
       })}
     </div>
   );
