@@ -11,18 +11,23 @@ import {
   ThumbsUp,
 } from "lucide-react";
 import Image from "next/image";
-import { getTimestamp } from "@/lib/utils";
+// import { getTimestamp } from "@/lib/utils";
 import Link from "next/link";
 
 interface HomeThoughtDataProps {
-  thought: any;
+  th: any;
 }
 
-export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
+export default function HomeThoughtData({ th }: HomeThoughtDataProps) {
+  const thought = JSON.parse(th);
+  // console.log(thought);
   const explanation =
     thought.explanation.length > 200
       ? thought.explanation.slice(0, 200) + "..."
       : thought.explanation;
+
+  console.log("to see the date");
+  console.log(thought.createdAt);
 
   return (
     <div
@@ -51,7 +56,7 @@ export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 text-gray-500">
             <Image
-              src={thought.author.picture}
+              src={thought.author.picture || "/av.svg"}
               alt="user avatar"
               width={20}
               height={20}
@@ -91,7 +96,7 @@ export default function HomeThoughtData({ thought }: HomeThoughtDataProps) {
           <Eye className="size-3 lg:size-4" />
           <p className="text-xs lg:text-sm text-gray-200">{thought.views}</p>
           <p className="text-xs lg:text-sm text-gray-200">Views</p>
-          <p>{getTimestamp(thought.createdAt)}</p>
+          {/* <p>{getTimestamp(thought.createdAt)}</p> */}
         </div>
         <Link
           href={`thoughts/${thought._id}`}
