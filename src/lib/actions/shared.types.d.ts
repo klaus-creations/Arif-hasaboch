@@ -59,3 +59,9 @@ export interface ICreateComment {
 export interface IGetThoughtsComment {
   thoughtId: string;
 }
+
+export interface TAddBio {
+  authorId: string;
+  bio: string;
+  path: "/";
+}
