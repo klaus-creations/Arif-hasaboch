@@ -4,7 +4,12 @@ import connectDB from "@/config/db";
 import tagModel from "@/models/tags.model";
 import thoughtsModel, { IThoughts } from "@/models/thoughts.model";
 import { revalidatePath } from "next/cache";
-import { IDetail, TCreateThoughts, TGetAllThoughts } from "./shared.types";
+import {
+  IDetail,
+  TAddBio,
+  TCreateThoughts,
+  TGetAllThoughts,
+} from "./shared.types";
 import userModel from "@/models/user.model";
 import commentModel from "@/models/comment.model";
 import { FilterQuery } from "mongoose";
@@ -113,5 +118,36 @@ export const getThoughtByauthor = async function (params: IDetail) {
     return authorThoughts;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const addBio = async function ({
+  authorId,
+  bio,
+  path,
+}: TAddBio): Promise<{ success: boolean; message: string }> {
+  try {
+    await connectDB();
+
+    console.log("from the actions");
+    console.log(authorId, bio, path);
+
+    const updatedAuthor = await userModel.findByIdAndUpdate(
+      { _id: authorId },
+      { bio },
+      { new: true }
+    );
+
+    console.log(updatedAuthor);
+
+    if (!updatedAuthor) {
+      return { success: false, message: "Author not found" };
+    }
+
+    revalidatePath(path);
+    return { success: true, message: "Bio updated successfully" };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: "Error updating bio" };
   }
 };
