@@ -20,14 +20,10 @@ interface HomeThoughtDataProps {
 
 export default function HomeThoughtData({ th }: HomeThoughtDataProps) {
   const thought = JSON.parse(th);
-  // console.log(thought);
   const explanation =
     thought.explanation.length > 200
       ? thought.explanation.slice(0, 200) + "..."
       : thought.explanation;
-
-  console.log("to see the date");
-  console.log(thought.createdAt);
 
   return (
     <div
