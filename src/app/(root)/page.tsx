@@ -4,10 +4,15 @@ import React from "react";
 
 // Correct Next.js Page Props Type
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ query: string }>;
+}) {
+  const { query } = await searchParams;
   return (
     <div className="w-full h-full overflow-hidden flex justify-between">
-      <LeftHome />
+      <LeftHome query={query} />
       <RightHome />
     </div>
   );
