@@ -18,7 +18,7 @@ export default async function Members() {
             {users?.totalUsers.map((user: IUser) => {
               return (
                 <Link
-                  href={"/"}
+                  href={`/profile/${user.clerkId}`}
                   key={user.clerkId}
                   className="flex items-center flex-col w-20 lg:w-32 border-[1px] border-emerald-500/[.4] py-2 rounded-md bg-emerald-950 hover:bg-emerald-900"
                 >
