@@ -17,32 +17,39 @@ import { FilterQuery } from "mongoose";
 export const getAllThoughts = async function (
   data: TGetAllThoughts
 ): Promise<{ result: IThoughts[] }> {
-  const { query, page = 1, pageSize = 10 } = data;
+  const { query = "", page = 1, pageSize = 10 } = data;
+
+  console.log(query);
 
   const skipAmount = (page - 1) * pageSize;
   console.log(skipAmount);
 
   const q: FilterQuery<typeof thoughtsModel> = {};
 
-  if (query) {
-    const escapedSearchQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (query.trim()) {
+    console.log("something new");
+    const escapedSearchQuery = query
+      .trim()
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
     q.$or = [
-      { title: { $regex: new RegExp(escapedSearchQuery, "i") } },
-      { content: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      { title: { $regex: escapedSearchQuery, $options: "i" } },
+      { explanation: { $regex: escapedSearchQuery, $options: "i" } },
     ];
   }
 
   try {
+    console.log(q);
     await connectDB();
     const result = await thoughtsModel
       .find(q)
       .populate({ path: "tags", model: tagModel })
       .populate({ path: "author", model: userModel })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .skip(skipAmount)
+      .limit(pageSize);
 
-    if (!result) {
-      throw new Error("Failed to fetch thoughts.");
-    }
+    console.log(result);
 
     return { result };
   } catch (error) {
