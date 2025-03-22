@@ -6,7 +6,6 @@ import { ITag } from "@/models/tags.model";
 
 export default async function PopularTags() {
   const popularTags = await getPopularTags();
-  console.log(popularTags);
   return (
     <div className="w-full flex flex-col gap-3">
       <h2 className="text-base lg:text-xl font-bold tracking-[1px] text-gray-100 uppercase">
