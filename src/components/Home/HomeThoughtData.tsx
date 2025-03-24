@@ -13,7 +13,6 @@ import {
 import Image from "next/image";
 // import { getTimestamp } from "@/lib/utils";
 import Link from "next/link";
-import { getTimestamp } from "@/lib/utils";
 
 interface HomeThoughtDataProps {
   th: any;
