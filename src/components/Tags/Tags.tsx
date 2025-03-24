@@ -30,7 +30,7 @@ export default async function Tags({ topic }: ITopics) {
               tags?.response.map((tag: ITag, i: number) => {
                 return (
                   <Link
-                    href={`/tags/${tag._id}`}
+                    href={`/topics/${tag._id}`}
                     key={i}
                     className="flex items-start flex-col w-[90%]  border-[1px] border-emerald-500/[.2] rounded-md bg-gray-800/[.1] hover:bg-emerald-900/[.1] px-2 py-3"
                   >

@@ -29,7 +29,7 @@ const PopularTag = function ({ data }: Prop) {
   return (
     <Link
       className="w-[90%] flex flex-col items-start bg-emerald-950/[.1] hover:bg-emerald-950/[.2] duration-300 border-[1px] border-emerald-500/[.2] rounded-lg px-3 py-2"
-      href={"/"}
+      href={`/topics/${data._id}`}
     >
       <span className="">{data.name}</span>
       <span className="text-sm lg:text-xs text-gray-400">
