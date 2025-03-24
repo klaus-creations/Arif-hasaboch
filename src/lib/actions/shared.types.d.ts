@@ -36,13 +36,13 @@ export interface TDeleteUser {
 export interface TgetAllUsers {
   page?: number;
   pageSize?: number;
-  query?: number;
+  query?: string;
 }
 
 export interface TGetAllTags {
   page?: number;
   pageSize?: number;
-  query?: number;
+  query?: string;
 }
 
 export interface IDetail {
@@ -64,4 +64,15 @@ export interface TAddBio {
   authorId: string;
   bio: string;
   path: "/";
+}
+
+export interface TIncreaseView {
+  thoughtId: string;
+}
+
+export interface ILikeDislike {
+  isPost: boolean;
+  userId: string;
+  id: string;
+  path: string;
 }

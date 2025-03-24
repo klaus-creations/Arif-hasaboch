@@ -11,6 +11,7 @@ import {
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import thoughtsModel from "@/models/thoughts.model";
+import { FilterQuery } from "mongoose";
 
 export const getUserById = async function (data: any) {
   try {
@@ -93,27 +94,26 @@ export async function getAllUsers(data: TgetAllUsers): Promise<{
   try {
     await connectDB();
 
-    // const { query, page = 1, pageSize = 10 } = data;
-    // const skipAmount = (page - 1) * pageSize;
+    const { query = "", page = 1, pageSize = 10 } = data;
+    const skipAmount = (page - 1) * pageSize;
 
-    // const queries: FilterQuery<typeof User> = {};
+    const q: FilterQuery<typeof userModel> = {};
 
-    // if(searchQuery) {
-    //   const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    //   query.$or = [
-    //     { name: { $regex: new RegExp(escapedSearchQuery, 'i') }},
-    //     { username: { $regex: new RegExp(escapedSearchQuery, 'i') }},
-    //   ]
-    // }
+    if (query.trim()) {
+      const escapedSearchQuery = query
+        .trim()
+        .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      q.$or = [
+        { name: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { username: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }
 
-    //     let sortOptions = {};
-    // const users = await User.find(query)
-    //   .sort(sortOptions)
-    //   .skip(skipAmount)
-    //   .limit(pageSize)
-
-    const totalUsers = await userModel.find(data);
-    // const isNext = totalUsers > skipAmount + users.length;
+    const totalUsers = await userModel
+      .find(q)
+      .sort({ createdAt: -1 })
+      .skip(skipAmount)
+      .limit(pageSize);
 
     return { totalUsers };
   } catch (error) {

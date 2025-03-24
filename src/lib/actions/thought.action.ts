@@ -6,9 +6,11 @@ import thoughtsModel, { IThoughts } from "@/models/thoughts.model";
 import { revalidatePath } from "next/cache";
 import {
   IDetail,
+  // ILikeDislike,
   TAddBio,
   TCreateThoughts,
   TGetAllThoughts,
+  TIncreaseView,
 } from "./shared.types";
 import userModel from "@/models/user.model";
 import commentModel from "@/models/comment.model";
@@ -19,10 +21,7 @@ export const getAllThoughts = async function (
 ): Promise<{ result: IThoughts[] }> {
   const { query = "", page = 1, pageSize = 10 } = data;
 
-  console.log(query);
-
   const skipAmount = (page - 1) * pageSize;
-  console.log(skipAmount);
 
   const q: FilterQuery<typeof thoughtsModel> = {};
 
@@ -190,3 +189,35 @@ export const removeBio = async function ({
     return { success: false, message: "Error removing bio" };
   }
 };
+
+export const increaseThoughtView = async function ({
+  thoughtId,
+}: TIncreaseView) {
+  try {
+    await connectDB();
+    const thought = await thoughtsModel.findByIdAndUpdate(
+      thoughtId,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+    return thought;
+  } catch (error) {
+    console.error("Error increasing thought view:", error);
+  }
+};
+
+// export const like = async function ({ id, isPost, userId }: ILikeDislike) {
+
+//   try {
+//     await connectDB();
+
+//     if(isPost) {
+//       await thoughtsModel.findByIdAndUpdate()
+//     }
+
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// export const dislike = async function () {};
