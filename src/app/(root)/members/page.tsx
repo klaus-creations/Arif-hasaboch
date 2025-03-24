@@ -1,10 +1,15 @@
 import Members from "@/components/members/Members";
 import React from "react";
 
-export default function page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ member: string }>;
+}) {
+  const { member } = await searchParams;
   return (
     <div className="size-full">
-      <Members />
+      <Members member={member} />
     </div>
   );
 }
