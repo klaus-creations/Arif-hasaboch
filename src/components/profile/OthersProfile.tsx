@@ -6,7 +6,7 @@ import Image from "next/image";
 import React from "react";
 import HomeThoughtData from "../Home/HomeThoughtData";
 import NoResult from "../common/NoResult";
-import FollowButton from "../common/FollowButton";
+// import FollowButton from "../common/FollowButton";
 
 interface IOtherProfile {
   data: any;
@@ -72,7 +72,7 @@ export default function OthersProfile({ data }: IOtherProfile) {
         {userData?.bio ? userData.bio : "No Bio"}
       </p>
 
-      <FollowButton />
+      {/* <FollowButton /> */}
 
       <OthersPosts id={userData?._id} />
     </div>

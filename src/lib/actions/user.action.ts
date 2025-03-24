@@ -121,3 +121,5 @@ export async function getAllUsers(data: TgetAllUsers): Promise<{
     throw error;
   }
 }
+
+export const addFollow = async function () {};

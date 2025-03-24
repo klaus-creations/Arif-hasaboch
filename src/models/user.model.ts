@@ -9,6 +9,8 @@ export interface IUser extends Document {
   bio?: string;
   picture: string;
   reputation?: number;
+  followers: Schema.Types.ObjectId[];
+  followings: Schema.Types.ObjectId[];
   saved: Schema.Types.ObjectId[];
   joinedAt: Date;
 }
@@ -22,7 +24,9 @@ const UserSchema = new Schema<IUser>({
   bio: { type: String },
   picture: { type: String, required: true },
   reputation: { type: Number, default: 0 },
-  saved: [{ type: Schema.Types.ObjectId, ref: "Question" }],
+  saved: [{ type: Schema.Types.ObjectId, ref: "Thoughts" }],
+  followers: [{ type: Schema.Types.ObjectId }],
+  followings: [{ type: Schema.Types.ObjectId }],
   joinedAt: { type: Date, default: Date.now },
 });
 

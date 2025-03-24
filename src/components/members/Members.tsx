@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import NoResult from "../common/NoResult";
-import FollowButton from "../common/FollowButton";
+// import FollowButton from "../common/FollowButton";
 import { MembersInout } from "./MembersInput";
 
 interface IMembers {
@@ -29,7 +29,7 @@ export default async function Members({ member }: IMembers) {
                 <Link
                   href={`/profile/${user.clerkId}`}
                   key={user.clerkId}
-                  className="flex w-full items-center justify-between border-[1px] border-emerald-500/[.4] py-2 rounded-md 
+                  className="flex w-full items-center border-[1px] border-emerald-500/[.4] py-2 rounded-md 
                   bg-emerald-950/[.1] hover:bg-emerald-950/[.3] px-4"
                 >
                   <div className="flex flex-col items-start gap-2">
@@ -46,12 +46,12 @@ export default async function Members({ member }: IMembers) {
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-center gap-2">
+                  {/* <div className="flex flex-col items-center gap-2">
                     <FollowButton />
                     <p className="text-sm lg:text-base text-gray-400">
                       10 Followers
                     </p>
-                  </div>
+                  </div> */}
                 </Link>
               );
             })}
