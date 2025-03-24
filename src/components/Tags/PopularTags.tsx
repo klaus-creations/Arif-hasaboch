@@ -9,7 +9,7 @@ export default async function PopularTags() {
   return (
     <div className="w-full flex flex-col gap-3">
       <h2 className="text-base lg:text-xl font-bold tracking-[1px] text-gray-100 uppercase">
-        Most Popular Tags
+        Most Popular Topics
       </h2>
 
       <div className="w-full flex flex-col items-start gap-3">

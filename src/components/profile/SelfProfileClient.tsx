@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import Image from "next/image";
 import React from "react";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -67,19 +66,6 @@ export default function SelfProfileClient({ data }: ISelfProfile) {
   };
   return (
     <div className="w-full flex flex-col items-start gap-4">
-      <div className="flex items-center gap-4">
-        <Image
-          src={userData?.picture}
-          alt="user avatar"
-          width={50}
-          height={50}
-          className="rounded-full size-8 lg:size-12 2xl:lg:size-14"
-        />
-        <p className="text-xl lg:text-2xl text-gray-200 font-extrabold tracking-[1px]">
-          {userData?.name}
-        </p>
-      </div>
-
       <div className="text-base lg:text-xl font-bold tracking-[1px] text-gray-300">
         {userData?.bio ? (
           <div className="flex flex-col items-start gap-2">

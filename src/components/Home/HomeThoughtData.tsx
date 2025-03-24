@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 // import { getTimestamp } from "@/lib/utils";
 import Link from "next/link";
+import { getTimestamp } from "@/lib/utils";
 
 interface HomeThoughtDataProps {
   th: any;
@@ -25,6 +26,8 @@ export default function HomeThoughtData({ th }: HomeThoughtDataProps) {
       ? thought.explanation.slice(0, 200) + "..."
       : thought.explanation;
 
+  console.log("this is time");
+  console.log(thought.createdAt);
   return (
     <div
       className="w-full rounded-md p-2 shadow-md shadow-emerald-500/[.1] border-[1px] bg-slate-950/[.1] border-gray-100/[.2] flex 
@@ -40,7 +43,7 @@ export default function HomeThoughtData({ th }: HomeThoughtDataProps) {
         {thought.tags.map((tag: any) => {
           return (
             <Badge
-              key={tag.name}
+              key={tag._id}
               className="flex items-center gap-1 p-1 bg-emerald-950 hover:bg-emerald-900"
             >
               <span>{tag.name}</span>
@@ -95,7 +98,7 @@ export default function HomeThoughtData({ th }: HomeThoughtDataProps) {
           {/* <p>{getTimestamp(thought.createdAt)}</p> */}
         </div>
         <Link
-          href={`thoughts/${thought._id}`}
+          href={`/thoughts/${thought._id}`}
           className="flex items-center gap-1 text-emerald-500 bg-transparent border-[1px] border-emerald-600/[.5] px-2 py-1 hover:bg-emerald-700/[.05]"
         >
           <p className="text-xs lg:text-sm text-gray-400">See More</p>

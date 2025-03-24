@@ -27,6 +27,9 @@ export default async function Detail({ id }: IDetailParam) {
     redirect("/");
   }
 
+  console.log("this is from detail  ");
+  console.log(detail?.response.createdAt);
+
   return (
     <div className="w-full flex flex-col items-start gap-4">
       <UserInfoDetail author={detail?.response.author} />
@@ -38,6 +41,7 @@ export default async function Detail({ id }: IDetailParam) {
         dislike={detail?.response.downvotes}
         comment={detail?.response.comments}
         tags={detail?.response.tags}
+        view={detail?.response.views}
       />
 
       <NewThoughtCommentForm
@@ -58,6 +62,7 @@ interface ITitDesc {
   dislike: any;
   comment: any;
   tags: any;
+  view: number;
 }
 
 const ThoughtDetail = function ({
@@ -68,6 +73,7 @@ const ThoughtDetail = function ({
   dislike,
   comment,
   tags,
+  view,
 }: ITitDesc) {
   return (
     <div className="w-full flex flex-col gap-2 items-start">
@@ -92,7 +98,7 @@ const ThoughtDetail = function ({
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-1 text-gray-200">
           <Eye className="size-3 lg:size-4" />
-          <p className="text-xs lg:text-sm text-gray-100">{comment.length}</p>
+          <p className="text-xs lg:text-sm text-gray-100">{view}</p>
           <p className="text-xs lg:text-sm text-gray-100">Views</p>
           <p className="text-xs text-gray-300">{getTimestamp(time)}</p>
         </div>

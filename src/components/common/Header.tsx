@@ -29,8 +29,8 @@ export default function Header() {
 
       <nav className="hidden lg:flex items-center gap-8">
         <Link href={"/"}>Home</Link>
-        <Link href={"/"}>About</Link>
-        <Link href={"/tags"}>Tags</Link>
+        <Link href={"/about"}>About</Link>
+        <Link href={"/topics"}>Topics</Link>
         <Link href={"/members"}>Members</Link>
       </nav>
 
