@@ -47,7 +47,7 @@ export default function OthersProfile({ data }: IOtherProfile) {
           </h3>
         </div>
 
-        <div className="flex items-center  gap-2">
+        {/* <div className="flex items-center  gap-2">
           <div className="flex flex-col items-center">
             <span className="text-base lg:text-xl font-bold text-gray-200">
               10
@@ -65,7 +65,7 @@ export default function OthersProfile({ data }: IOtherProfile) {
               Following
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <p className="text-base lg:text-xl font-bold tracking-[1px] text-gray-300">
