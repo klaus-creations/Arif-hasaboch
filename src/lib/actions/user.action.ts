@@ -4,6 +4,7 @@
 import connectDB from "@/config/db";
 import userModel, { IUser } from "@/models/user.model";
 import {
+  IFollow,
   TCreateUser,
   TDeleteUser,
   TgetAllUsers,
@@ -122,4 +123,71 @@ export async function getAllUsers(data: TgetAllUsers): Promise<{
   }
 }
 
-export const addFollow = async function () {};
+export const follow = async function ({
+  creatorId,
+  followerId,
+  path,
+}: IFollow) {
+  try {
+    if (creatorId === followerId) {
+      throw new Error("Users cannot follow themselves.");
+    }
+
+    await connectDB();
+
+    console.log("This is Creator Id");
+    console.log(creatorId);
+
+    console.log("this is follower Id");
+    console.log(followerId);
+
+    const creator = await userModel.findById(creatorId);
+    console.log(creator);
+
+    if (creator.followers.includes(followerId)) {
+      const unfollow = await userModel.findByIdAndUpdate(creatorId, {
+        $pull: { followers: followerId },
+      });
+      const unfollowing = await userModel.findByIdAndUpdate(followerId, {
+        $pull: { followings: creatorId },
+      });
+
+      if (unfollow && unfollowing) return false;
+    } else {
+      const follow = await userModel.findByIdAndUpdate(creatorId, {
+        $addToSet: { followers: followerId },
+      });
+      const following = await userModel.findByIdAndUpdate(followerId, {
+        $addToSet: { followings: creatorId },
+      });
+
+      if (follow && following) return;
+    }
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const checkFollow = async function ({
+  creatorId,
+  followerId,
+  path,
+}: IFollow) {
+  try {
+    await connectDB();
+    const data = await userModel.findById(creatorId);
+    if (!data) throw new Error("user not found with this id");
+
+    if (data?.followers.includes(followerId)) {
+      return true;
+    } else {
+      return false;
+    }
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+  }
+};
