@@ -25,8 +25,6 @@ export default function HomeThoughtData({ th }: HomeThoughtDataProps) {
       ? thought.explanation.slice(0, 200) + "..."
       : thought.explanation;
 
-  console.log("this is time");
-  console.log(thought.createdAt);
   return (
     <div
       className="w-full rounded-md p-2 shadow-md shadow-emerald-500/[.1] border-[1px] bg-slate-950/[.1] border-gray-100/[.2] flex 
