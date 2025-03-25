@@ -76,3 +76,9 @@ export interface ILikeDislike {
   id: string;
   path: string;
 }
+
+export interface IFollow {
+  followerId: string;
+  creatorId: string;
+  path: string;
+}
