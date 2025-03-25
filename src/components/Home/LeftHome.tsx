@@ -6,6 +6,7 @@ import HomeThoughtData from "./HomeThoughtData";
 import { getAllThoughts } from "@/lib/actions/thought.action";
 import { IThoughts } from "@/models/thoughts.model";
 import { LeftHomeInputC } from "./LeftHomeinput";
+import FeedTypeChooser from "./FeedTypeChooser";
 
 interface IQuery {
   query: string;
@@ -23,6 +24,8 @@ export default async function LeftHome({ query }: IQuery) {
     <div className="h-full w-full lg:w-[70%] overflow-y-auto flex flex-col items-start gap-5 py-3 lg:px-6">
       <LeftHomeFirstC />
       <LeftHomeInputC />
+      <FeedTypeChooser />
+
       <div className="w-full flex flex-col items-center gap-10 lg:gap-14 2xl:gap-15">
         {thoughts.map(function (thought: IThoughts) {
           return (
