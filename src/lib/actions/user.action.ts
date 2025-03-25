@@ -19,7 +19,13 @@ export const getUserById = async function (data: any) {
     connectDB();
     const { userId } = data;
 
-    const user = await userModel.findOne({ clerkId: userId });
+    const user = await userModel
+      .findOne({ clerkId: userId })
+      .populate({ path: "followers", model: userModel })
+      .populate({
+        path: "followings",
+        model: userModel,
+      });
 
     return user;
   } catch (error) {
@@ -112,6 +118,7 @@ export async function getAllUsers(data: TgetAllUsers): Promise<{
 
     const totalUsers = await userModel
       .find(q)
+      .populate({ path: "followers", model: userModel })
       .sort({ createdAt: -1 })
       .skip(skipAmount)
       .limit(pageSize);
