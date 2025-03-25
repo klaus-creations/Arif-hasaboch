@@ -50,7 +50,7 @@ export default function SelfProfile({ data }: ISelfProfile) {
         <div className="flex items-center  gap-2">
           <div className="flex flex-col items-center">
             <span className="text-base lg:text-xl font-bold text-gray-200">
-              10
+              {userData?.followers?.length}
             </span>
             <span className="text-sm lg:text-base font-bold text-gray-400">
               Followers
@@ -59,7 +59,7 @@ export default function SelfProfile({ data }: ISelfProfile) {
 
           <div className="flex flex-col items-center">
             <span className="text-base lg:text-xl font-bold text-gray-200">
-              10
+              {userData?.followings?.length}
             </span>
             <span className="text-sm lg:text-base font-bold text-gray-400">
               Following
