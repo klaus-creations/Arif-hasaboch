@@ -9,6 +9,9 @@ import { NewThoughtCommentForm } from "./Form";
 import { redirect } from "next/navigation";
 import ShowComments from "./ShowComments";
 import { Badge } from "../ui/badge";
+import FollowButton from "../common/FollowButton";
+import { auth } from "@clerk/nextjs/server";
+import { checkFollow, getUserById } from "@/lib/actions/user.action";
 
 interface IDetailParam {
   id: string;
@@ -27,12 +30,9 @@ export default async function Detail({ id }: IDetailParam) {
     redirect("/");
   }
 
-  console.log("this is from detail  ");
-  console.log(detail?.response.createdAt);
-
   return (
     <div className="w-full flex flex-col items-start gap-4">
-      <UserInfoDetail author={detail?.response.author} />
+      <UserInfoDetail author={detail?.response} />
       <ThoughtDetail
         title={detail?.response.title}
         description={detail?.response.explanation}
@@ -127,19 +127,45 @@ interface IUserInfo {
   author: any;
 }
 
-const UserInfoDetail = function ({ author }: IUserInfo) {
+const UserInfoDetail = async function ({ author }: IUserInfo) {
+  const { userId } = await auth();
+  const user = await getUserById({ userId });
+  console.log("From detail");
+  console.log(user);
+  if (!user) redirect("/");
+
+  const isFollow = await checkFollow({
+    creatorId: author?.author._id,
+    followerId: user._id,
+    path: `/thoughts/${author._id}`,
+  });
+
   return (
-    <Link href={"/"} className="flex gap-2 items-center">
-      <Image
-        src={author.picture}
-        alt="user avatar"
-        width={70}
-        height={70}
-        className="rounded-full size-8 lg:size-10"
-      />
-      <p className="text-base lg:text-xl text-gray-200 font-bold tracking-[1px]">
-        {author?.name}
-      </p>
-    </Link>
+    <div className="w-full flex gap-4 items-center">
+      <Link
+        href={`/profile/${author.clerkId}`}
+        className="flex gap-2 items-center"
+      >
+        <Image
+          src={author.author.picture}
+          alt="user avatar"
+          width={70}
+          height={70}
+          className="rounded-full size-8 lg:size-10"
+        />
+        <p className="text-base lg:text-xl text-gray-200 font-bold tracking-[1px]">
+          {author?.author?.name}
+        </p>
+      </Link>
+
+      {userId && (
+        <FollowButton
+          isFollow={isFollow || false}
+          creatorId={JSON.stringify(author?.author._id)}
+          followerId={JSON.stringify(user._id)}
+          path={`/thoughts/${author._id}`}
+        />
+      )}
+    </div>
   );
 };
