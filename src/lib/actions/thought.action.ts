@@ -26,7 +26,6 @@ export const getAllThoughts = async function (
   const q: FilterQuery<typeof thoughtsModel> = {};
 
   if (query.trim()) {
-    console.log("something new");
     const escapedSearchQuery = query
       .trim()
       .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -47,8 +46,6 @@ export const getAllThoughts = async function (
       .sort({ createdAt: -1 })
       .skip(skipAmount)
       .limit(pageSize);
-
-    console.log(result);
 
     return { result };
   } catch (error) {
@@ -135,16 +132,11 @@ export const addBio = async function ({
   try {
     await connectDB();
 
-    console.log("from the actions");
-    console.log(authorId, bio, path);
-
     const updatedAuthor = await userModel.findByIdAndUpdate(
       { _id: authorId },
       { bio },
       { new: true }
     );
-
-    console.log(updatedAuthor);
 
     if (!updatedAuthor) {
       return { success: false, message: "Author not found" };
@@ -168,15 +160,11 @@ export const removeBio = async function ({
   try {
     await connectDB();
 
-    console.log("Removing bio for author:", authorId);
-
     const updatedAuthor = await userModel.findByIdAndUpdate(
       { _id: authorId },
       { $unset: { bio: "" } },
       { new: true }
     );
-
-    console.log(updatedAuthor);
 
     if (!updatedAuthor) {
       return { success: false, message: "Author not found" };
