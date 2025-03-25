@@ -16,7 +16,7 @@ import { FilterQuery } from "mongoose";
 
 export const getUserById = async function (data: any) {
   try {
-    connectDB();
+    await connectDB();
     const { userId } = data;
 
     const user = await userModel
@@ -142,12 +142,6 @@ export const follow = async function ({
 
     await connectDB();
 
-    console.log("This is Creator Id");
-    console.log(creatorId);
-
-    console.log("this is follower Id");
-    console.log(followerId);
-
     const creator = await userModel.findById(creatorId);
     console.log(creator);
 
@@ -193,7 +187,7 @@ export const checkFollow = async function ({
       return false;
     }
 
-    revalidatePath(path);
+    console.log(path);
   } catch (error) {
     console.log(error);
   }
